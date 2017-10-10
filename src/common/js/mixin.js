@@ -1,5 +1,6 @@
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
+// 处理有miniplayer时，容器底部距离
 export const playlistMixin = {
   computed: {
     ...mapGetters([
