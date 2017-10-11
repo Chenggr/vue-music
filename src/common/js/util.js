@@ -1,9 +1,9 @@
 // 包括min和max的随机数
-function getRandomInt (min, max) {
+function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 // 随机打乱数组
-export function shuffle (arr) {
+export function shuffle(arr) {
   let _arr = arr.slice()
   for (let i = 0; i < _arr.length; i++) {
     let j = getRandomInt(0, i)
@@ -12,4 +12,18 @@ export function shuffle (arr) {
     _arr[j] = t
   }
   return _arr
+}
+
+// 节流函数
+export function debounce(func, delay) {
+  let timer
+
+  return function (...args) {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      func.apply(this, args)
+    }, delay)
+  }
 }

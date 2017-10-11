@@ -24,7 +24,7 @@ export function getData (el, name, val) {
 
 // prefixStyle
 let elementStyle = document.createElement('div').style
-console.log(elementStyle)
+
 let vendor = (() => {
   let transformNames = {
     webkit: 'webkitTransform',
