@@ -70,7 +70,7 @@
               <i @click="next" class="icon-next"></i>
             </div>
             <div class="icon i-right">
-              <i class="icon icon-not-favorite"></i>
+              <i class="icon" @click="toggleFavorite(currentSong)" :class="getFavoriteIcon(currentSong)"></i>
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@
     </transition>
     <playlist ref="playlist"></playlist>
     <audio ref="audio" :src="currentSong.url"
-           @canplay="ready"
+           @play="ready"
            @error="error"
            @timeupdate="updateTime"
            @ended="end"
@@ -237,6 +237,7 @@
         }
         if (this.playlist.length === 1) { // 边界情况
           this.loop()
+          return
         } else {
           let index = this.currentIndex + 1
           if (index === this.playlist.length) {
@@ -255,6 +256,7 @@
         }
         if (this.playlist.length === 1) { // 边界情况
           this.loop()
+          return
         } else {
           let index = this.currentIndex - 1
           if (index === -1) {
@@ -297,6 +299,9 @@
       },
       getLyric () {
         this.currentSong.getLyric().then((lyric) => {
+          if (this.currentSong.lyric !== lyric) {  // 解决快速切换歌词不同步
+            return
+          }
           this.currentLyric = new Lyric(lyric, this.handleLyric)
           if (this.playing) {
             this.currentLyric.play()
@@ -421,7 +426,8 @@
 //          this.$refs.audio.play()
 //          this.getLyric()
 //        })
-        setTimeout(() => {
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
           this.$refs.audio.play()
           this.getLyric()
         }, 1000)

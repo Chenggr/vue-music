@@ -10,6 +10,9 @@ import VueLazyLoad from 'vue-lazyload'
 
 import 'common/stylus/index.styl'
 
+/* eslint-disable no-unused-vars */
+// import vConsole from 'vconsole'   // 不需要vConsole请注释此行
+
 fastclick.attach(document.body)
 
 Vue.use(VueLazyLoad, {

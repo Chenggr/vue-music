@@ -11,7 +11,7 @@
         <search-box ref="searchBox" @query="onQueryChange" placeholder="搜索歌曲"></search-box>
       </div>
       <div class="shortcut" v-show="!query">
-        <Switches :switches="switches" :currentIndex="currentIndex" @switch="switchItem"></Switches>
+        <switches :switches="switches" :currentIndex="currentIndex" @switch="switchItem"></switches>
         <div class="list-wrapper">
           <scroll ref="songList" class="list-scroll" v-if="currentIndex===0" :data="playHistory">
             <div class="list-inner">
@@ -39,6 +39,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  // TODO BUG:搜索后 选取歌曲 点击'x'返回到 '最近播放'或'搜索历史' scroll无法滚动
   import SearchBox from 'base/search-box/search-box'
   import Suggest from 'components/suggest/suggest'
   import {searchMixin} from 'common/js/mixin'
@@ -83,8 +84,17 @@
         this.showFlag = false
       },
       selectSuggest() {
+        this.$refs.songList.refresh()
         this.saveSearch()
         this.showTip()
+        setTimeout(() => {
+          if (this.currentIndex === 0) {
+            this.$refs.songList.refresh()
+          } else {
+            this.$refs.searchList.refresh()
+          }
+        }, 20)
+        this.$refs.songList.refresh()
       },
       switchItem(index) {
         this.currentIndex = index

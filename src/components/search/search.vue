@@ -61,7 +61,6 @@
     },
     computed: {
       shortcut() {
-        console.log(this.hotKey.concat(this.searchHistory))
         return this.hotKey.concat(this.searchHistory)
       }
     },
