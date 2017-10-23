@@ -288,7 +288,6 @@
       },
       onProgressBarChange(percent) {
         const currentTime = this.currentSong.duration * percent
-        console.log(currentTime)
         this.$refs.audio.currentTime = currentTime
         if (!this.playing) {
           this.togglePlaying()
@@ -338,7 +337,7 @@
         const touch = e.touches[0]
         const deltaX = touch.pageX - this.touch.startX
         const deltaY = touch.pageY - this.touch.startY
-        console.log(deltaX)
+
         if (Math.abs(deltaY) > Math.abs(deltaX)) {
           return
         }
@@ -351,7 +350,6 @@
         this.$refs.middleL.style[transitionDuration] = 0
       },
       middleTouchEnd() {
-        console.log('percent:' + this.touch.percent)
         let offsetWidth
         let opacity
         if (this.currentShow === 'cd') {

@@ -1,6 +1,7 @@
 import jsonp from 'common/js/jsonp'
 import {commonParams, options} from './config'
 import axios from 'axios'
+import {fakeData} from 'common/js/data'
 
 export function getRecommend() {
   const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
@@ -32,7 +33,9 @@ export function getDiscList() {
   return axios.get(url, {
     params: data
   }).then((res) => {
-    return Promise.resolve(res.data)
+    // console.log(res.data)
+    console.log(fakeData)
+    return Promise.resolve(fakeData)
   })
 }
 
